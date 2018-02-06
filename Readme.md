@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Роман Никитенко](https://up.htmlacademy.ru/nodejs/1/user/618537).
-* Наставник: `Неизвестно`.
+* Наставник: [Евгений Сироткин](https://htmlacademy.ru/profile/id634169).
 
 ---
 
