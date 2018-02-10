@@ -1,32 +1,32 @@
 const args = process.argv.slice(2);
-const flags = {
-  version: 'v0.0.1',
-  help: `Доступные команды:
---help    — печатает этот текст;
---version — печатает версию приложения;`,
-  default: `Привет пользователь!
-Эта программа будет запускать сервер «Кексобукинг».
-Автор: Никитенко Роман.`,
-  error: (undefinedFlag) => {
-    return `Неизвестная команда ${undefinedFlag}.
-Чтобы прочитать правила использования приложения, наберите "--help"`;
-  },
-};
+const version = require(`./src/version`);
+const help = require(`./src/help`);
+const error = require(`./src/error`);
+const author = require(`./src/author`);
+const license = require(`./src/license`);
+const description = require(`./src/description`);
 
 switch (args[0]) {
-  case '--version':
-    console.log(flags.version);
+  case `--version`:
+    version.execute();
     break;
 
-  case '--help':
-    console.log(flags.help);
+  case `--help`:
+    help.execute();
     break;
 
-  case undefined:
-    console.log(flags.default);
+  case `--author`:
+    author.execute();
+    break;
+
+  case `--license`:
+    license.execute();
+    break;
+
+  case `--description`:
+    description.execute();
     break;
 
   default:
-    console.error(flags.error(args.join(' ')));
-    process.exit(1);
+    error.execute(args.join(` `));
 }
