@@ -1,7 +1,7 @@
 {
   "name": "618537-keksobooking",
   "version": "0.0.1",
-  "description": "Keksobooking educational project",
+  "description": "This program will launch the server 'Keksobuking'",
   "main": "index.js",
   "scripts": {
     "test:lint": "eslint .",

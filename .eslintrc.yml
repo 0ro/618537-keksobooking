@@ -2,9 +2,6 @@ parserOptions:
   ecmaVersion: 2017
   sourceType: 'module'
 
-rules:
-   no-undefined: 0
-
 env:
   es6: true
   node: true
