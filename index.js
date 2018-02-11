@@ -5,6 +5,7 @@ const error = require(`./src/error`);
 const author = require(`./src/author`);
 const license = require(`./src/license`);
 const description = require(`./src/description`);
+const voidCommand = require(`./src/voidCommand`);
 
 switch (args[0]) {
   case `--version`:
@@ -25,6 +26,10 @@ switch (args[0]) {
 
   case `--description`:
     description.execute();
+    break;
+
+  case void 0:
+    voidCommand.execute();
     break;
 
   default:
