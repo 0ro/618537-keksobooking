@@ -1,6 +1,6 @@
 const args = process.argv.slice(2);
 const flags = {
-  version: 'v0.0.1',
+  version: `v0.0.1`,
   help: `Доступные команды:
 --help    — печатает этот текст;
 --version — печатает версию приложения;`,
@@ -14,11 +14,11 @@ const flags = {
 };
 
 switch (args[0]) {
-  case '--version':
+  case `--version`:
     console.log(flags.version);
     break;
 
-  case '--help':
+  case `--help`:
     console.log(flags.help);
     break;
 
@@ -27,6 +27,6 @@ switch (args[0]) {
     break;
 
   default:
-    console.error(flags.error(args.join(' ')));
+    console.error(flags.error(args.join(` `)));
     process.exit(1);
 }
