@@ -3,10 +3,9 @@ const packageInfo = require(`../package.json`);
 
 const getColorVersion = (version, arrOfColor) => {
   const colorsOfVersion = arrOfColor || [`red`, `green`, `blue`];
-  return version.split(`.`).reduce((acc, item, i)=> {
-    acc.push(colors[colorsOfVersion[i]](item));
-    return acc;
-  }, []).join(`.`);
+  return version.split(`.`).map((item, i)=> {
+    return colors[colorsOfVersion[i]](item);
+  }).join(`.`);
 };
 
 module.exports = {

@@ -8,7 +8,7 @@ const voidCommand = require(`./src/voidCommand`);
 const error = require(`./src/error`);
 const map = new Map([
   [`--${version.name}`, version.execute],
-  [`--${help.name}`, help.execute.bind(help)],
+  [`--${help.name}`, help.execute],
   [`--${author.name}`, author.execute],
   [`--${license.name}`, license.execute],
   [`--${description.name}`, description.execute],
