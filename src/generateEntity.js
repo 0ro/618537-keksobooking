@@ -36,8 +36,8 @@ const offer = {
 };
 
 module.exports = {
-  name: `generateEntity`,
-  description: `generate data for this appliction`,
+  name: `generate`,
+  description: `Generate data for this appliction`,
   execute() {
     return {
       author,

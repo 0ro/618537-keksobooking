@@ -4,11 +4,12 @@ const author = require(`./author`);
 const license = require(`./license`);
 const description = require(`./description`);
 const voidCommand = require(`./voidCommand`);
+const generate = require(`./generateEntity`);
 
 const getCommands = (map) => {
   let resultString = ``;
   map.forEach((value, key)=>{
-    resultString += `--${colors.grey(key)} - ${colors.green(value)}\n`;
+    resultString += key ? `--${colors.grey(key)} - ${colors.green(value)}\n` : `${colors.grey(`no flag`)} - ${colors.green(value)}\n`;
   });
   return resultString;
 };
@@ -27,6 +28,7 @@ const mapOfCommands = new Map([
   [`${author.name}`, author.description],
   [`${license.name}`, license.description],
   [`${description.name}`, description.description],
+  [`${generate.name}`, `${generate.description}`],
   [void 0, voidCommand.description]
 ]);
 
