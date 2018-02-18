@@ -4,7 +4,7 @@ const author = require(`./author`);
 const license = require(`./license`);
 const description = require(`./description`);
 const voidCommand = require(`./voidCommand`);
-const generate = require(`./generateEntity`);
+const generate = require(`./generate`);
 
 const getCommands = (map) => {
   let resultString = ``;
@@ -19,6 +19,7 @@ const help = {
   description: `Shows program help`,
   execute() {
     console.log(`Available commands:\n` + getCommands(mapOfCommands));
+    process.exit(0);
   }
 };
 
