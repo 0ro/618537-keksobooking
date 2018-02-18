@@ -1,10 +1,20 @@
 const generate = require(`./generate`);
+const {questionPromise} = require(`./questionPromise`);
+const colors = require(`colors`);
 
 module.exports = {
   name: `void`,
   description: `Show message for use generate`,
   execute() {
-    console.log(`Hi you can generate the data using the flag --${generate.name}`);
-    process.exit(0);
+    questionPromise(`Hello User! Generate the data? y/n: `).then((answer) => {
+      answer = answer.trim();
+      if (answer === `y`) {
+        return generate.execute();
+      }
+      throw new Error(`Cancel generate`);
+    }).catch((err) => {
+      console.error(colors.red(err));
+      process.exit(1);
+    });
   }
 };
