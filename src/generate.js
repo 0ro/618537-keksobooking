@@ -38,12 +38,12 @@ module.exports = {
   name: `generate`,
   description: `Generates data for project`,
   execute() {
-    let quantity;
+    let numberOfEntity;
     let fileName;
     questionPromise(`How many items you need to create? `).then((answer) => {
       const int = +answer.trim();
       if (int === int && typeof int === `number` && int > 0) {
-        quantity = int;
+        numberOfEntity = int;
         return questionPromise(`Write file's name: `);
       }
       throw new Error(`You did not enter a number > 0`);
@@ -54,13 +54,13 @@ module.exports = {
       }
       throw new Error(`You did not enter a path`);
     }).then(()=>{
-      return createFile(fileName, quantity);
+      return createFile(fileName, numberOfEntity);
     }).then(generateSuccess).catch((err) => {
       if (err.code === `EEXIST`) {
         questionPromise(`The file exists. Is it overwritten? y/n: `).then((answer) => {
           answer = answer.trim();
           if (answer === `y`) {
-            return createFile(fileName, quantity);
+            return createFile(fileName, numberOfEntity);
           }
           throw new Error(`Cancel generate`);
         }).then(generateSuccess).catch((error) => generateFail(error));
