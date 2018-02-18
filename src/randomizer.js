@@ -7,7 +7,8 @@ const getRandomItemFromArray = (array) => {
   return array[rand];
 };
 const getRandomMixArray = (array) => {
-  return array.sort(() => Math.random() - 0.5);
+  const arr = [...array];
+  return arr.sort(() => Math.random() - 0.5);
 };
 
 module.exports = {
