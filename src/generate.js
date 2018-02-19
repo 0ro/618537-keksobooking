@@ -27,7 +27,7 @@ const setStateAnswer = (key, value) => {
 
 const answerWithNumber = (answer) => {
   const int = +answer.trim();
-  if (int === int && typeof int === `number` && int > 0) {
+  if (int === int && int > 0) {
     setStateAnswer(`numberOfEntity`, int);
     return questionPromise(`Write file's name: `);
   }
@@ -35,8 +35,8 @@ const answerWithNumber = (answer) => {
 };
 
 const answerWithFileName = (answer) => {
-  const fileName = `${process.cwd()}/${answer.trim()}.json`;
-  if (fileName) {
+  if (answer) {
+    const fileName = `${process.cwd()}/${answer.trim()}.json`;
     setStateAnswer(`fileName`, fileName);
     return openFile(fileName, `wx`);
   }
@@ -52,7 +52,7 @@ const createFile = (state) => () => {
 const answerWithFileOverwrite = (answer) => {
   answer = answer.trim();
   if (answer === `y`) {
-    return createFile(answerState);
+    return createFile(answerState)();
   }
   throw new Error(`Cancel generate`);
 };
