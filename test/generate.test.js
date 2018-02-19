@@ -11,7 +11,6 @@ describe(`Generate JSON command`, function () {
     return isFileExist({fileName, numberOfEntity})
         .then((fd) => close(fd))
         .then(createFileWithResult.bind(null, {fileName, numberOfEntity}))
-        .then(() => unlink(`${process.cwd()}/${fileName}.json`))
-        .catch((err) => console.error(err));
+        .then(() => unlink(`${process.cwd()}/${fileName}.json`));
   });
 });
