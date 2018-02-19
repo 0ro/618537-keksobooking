@@ -30,14 +30,14 @@ const setState = (type, key, value) => {
   throw new Error(`I don't know this type`);
 };
 
-const openFileByName = (state) => {
-  return openFile(`${process.cwd()}/${state.fileName}.json`, `wx`);
+const openFileByName = (currentState) => {
+  return openFile(`${process.cwd()}/${currentState.fileName}.json`, `wx`);
 };
 
-const createFile = (state) => {
+const createFile = (currentState) => {
   const data = generateEntity(state.numberOfEntity);
   const fileWriteOptions = {encoding: `utf-8`, mode: 0o644};
-  return writeFile(`${process.cwd()}/${state.fileName}.json`, JSON.stringify(data), fileWriteOptions);
+  return writeFile(`${process.cwd()}/${currentState.fileName}.json`, JSON.stringify(data), fileWriteOptions);
 };
 
 const answerWithFileOverwrite = (answer) => {
