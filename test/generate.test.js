@@ -1,4 +1,5 @@
 const {isFileExist, createFileWithResult} = require(`../src/generate`);
+const {rl} = require(`../src/questionPromise`);
 const fs = require(`fs`);
 const {promisify} = require(`util`);
 const unlink = promisify(fs.unlink);
@@ -11,6 +12,7 @@ describe(`Generate JSON command`, function () {
     return isFileExist({fileName, numberOfEntity})
         .then((fd) => close(fd))
         .then(createFileWithResult.bind(null, {fileName, numberOfEntity}))
-        .then(() => unlink(`${process.cwd()}/${fileName}.json`));
+        .then(() => unlink(`${process.cwd()}/${fileName}.json`))
+        .then(()=>rl.close());
   });
 });

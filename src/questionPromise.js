@@ -14,5 +14,6 @@ rl.question[util.promisify.custom] = (arg) => {
 const questionPromise = util.promisify(rl.question);
 
 module.exports = {
+  rl,
   questionPromise
 };
