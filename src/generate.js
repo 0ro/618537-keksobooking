@@ -30,12 +30,12 @@ const setState = (type, key, value) => {
   throw new Error(`I don't know this type`);
 };
 
-const openFileByName = (currentState) => {
+const isFileExist = (currentState) => {
   return openFile(`${process.cwd()}/${currentState.fileName}.json`, `wx`);
 };
 
-const createFile = (currentState) => {
-  const data = generateEntity(state.numberOfEntity);
+const createFileWithResult = (currentState) => {
+  const data = generateEntity(currentState.numberOfEntity);
   const fileWriteOptions = {encoding: `utf-8`, mode: 0o644};
   return writeFile(`${process.cwd()}/${currentState.fileName}.json`, JSON.stringify(data), fileWriteOptions);
 };
@@ -43,7 +43,7 @@ const createFile = (currentState) => {
 const answerWithFileOverwrite = (answer) => {
   answer = answer.trim();
   if (answer === `y`) {
-    return createFile(state);
+    return createFileWithResult(state);
   }
   throw new Error(`Cancel generate`);
 };
@@ -68,14 +68,16 @@ const generateFail = (err) => {
 module.exports = {
   name: `generate`,
   description: `Generates data for project`,
-  execute() {
+  execute(stateAnswer = state) {
     questionPromise(`How many items you need to create? `)
         .then(setState.bind(null, `number`, `numberOfEntity`))
         .then(questionPromise.bind(null, `Write file's name: `))
         .then(setState.bind(null, `string`, `fileName`))
-        .then(openFileByName.bind(null, state))
-        .then(createFile.bind(null, state))
+        .then(isFileExist.bind(null, stateAnswer))
+        .then(createFileWithResult.bind(null, stateAnswer))
         .then(generateSuccess)
         .catch(generateFail);
-  }
+  },
+  isFileExist,
+  createFileWithResult
 };
