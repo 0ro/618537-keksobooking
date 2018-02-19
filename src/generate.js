@@ -6,24 +6,24 @@ const openFile = util.promisify(fs.open);
 const {questionPromise} = require(`./questionPromise`);
 const colors = require(`colors`);
 
-const answerState = {
+const state = {
   numberOfEntity: null,
   fileName: null
 };
 
-const setStateAnswer = (type, key, value) => {
+const setState = (type, key, value) => {
   if (type === `number`) {
     const int = +value.trim();
     if (int === int && int > 0) {
-      answerState[key] = int;
-      return answerState;
+      state[key] = int;
+      return state;
     }
     throw new Error(`You did not enter a number > 0`);
   } else if (type === `string`) {
     if (value) {
       const string = value.trim();
-      answerState[key] = string;
-      return answerState;
+      state[key] = string;
+      return state;
     }
     throw new Error(`You did not enter a path`);
   }
@@ -43,7 +43,7 @@ const createFile = (state) => {
 const answerWithFileOverwrite = (answer) => {
   answer = answer.trim();
   if (answer === `y`) {
-    return createFile(answerState);
+    return createFile(state);
   }
   throw new Error(`Cancel generate`);
 };
@@ -70,11 +70,11 @@ module.exports = {
   description: `Generates data for project`,
   execute() {
     questionPromise(`How many items you need to create? `)
-        .then(setStateAnswer.bind(null, `number`, `numberOfEntity`))
+        .then(setState.bind(null, `number`, `numberOfEntity`))
         .then(questionPromise.bind(null, `Write file's name: `))
-        .then(setStateAnswer.bind(null, `string`, `fileName`))
-        .then(openFileByName.bind(null, answerState))
-        .then(createFile.bind(null, answerState))
+        .then(setState.bind(null, `string`, `fileName`))
+        .then(openFileByName.bind(null, state))
+        .then(createFile.bind(null, state))
         .then(generateSuccess)
         .catch(generateFail);
   }
