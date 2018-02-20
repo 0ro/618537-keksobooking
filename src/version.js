@@ -13,5 +13,6 @@ module.exports = {
   description: `Shows program version`,
   execute() {
     console.log(`v${getColorVersion(packageInfo.version)}`);
+    process.exit(0);
   }
 };
