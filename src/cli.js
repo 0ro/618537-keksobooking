@@ -7,6 +7,7 @@ const description = require(`./cli/description`);
 const voidCommand = require(`./cli/voidCommand`);
 const error = require(`./cli/error`);
 const generate = require(`./generator/generate`);
+const server = require(`./cli/server`);
 
 const map = new Map([
   [`--${version.name}`, version.execute],
@@ -15,6 +16,7 @@ const map = new Map([
   [`--${license.name}`, license.execute],
   [`--${description.name}`, description.execute],
   [`--${generate.name}`, generate.execute],
+  [`--${server.name}`, server.execute],
   [void 0, voidCommand.execute]
 ]);
 

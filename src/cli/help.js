@@ -5,6 +5,7 @@ const license = require(`./license`);
 const description = require(`./description`);
 const voidCommand = require(`./voidCommand`);
 const generate = require(`../generator/generate`);
+const server = require(`./server`);
 
 const getCommands = (map) => {
   let resultString = ``;
@@ -30,6 +31,7 @@ const mapOfCommands = new Map([
   [`${license.name}`, license.description],
   [`${description.name}`, description.description],
   [`${generate.name}`, `${generate.description}`],
+  [`${server.name}`, `${server.description}`],
   [void 0, voidCommand.description]
 ]);
 
