@@ -4,7 +4,7 @@ const author = require(`./author`);
 const license = require(`./license`);
 const description = require(`./description`);
 const voidCommand = require(`./voidCommand`);
-const generate = require(`./generate`);
+const generate = require(`../generator/generate`);
 
 const getCommands = (map) => {
   let resultString = ``;
