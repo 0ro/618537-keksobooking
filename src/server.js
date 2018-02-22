@@ -27,7 +27,6 @@ const server = http.createServer((req, res) => {
 
   (async () => {
     try {
-      console.log(req.url)
       if (req.url === `/`) {
         await readFile(absolutePath + `index.html`, res);
       } else {
