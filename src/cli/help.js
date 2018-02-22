@@ -31,7 +31,7 @@ const mapOfCommands = new Map([
   [`${license.name}`, license.description],
   [`${description.name}`, description.description],
   [`${generate.name}`, `${generate.description}`],
-  [`${server.name}`, `${server.description}`],
+  [`${server.name} ${server.option}`, `${server.description}`],
   [void 0, voidCommand.description]
 ]);
 

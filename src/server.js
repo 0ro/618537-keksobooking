@@ -2,58 +2,41 @@ const http = require(`http`);
 const url = require(`url`);
 const fs = require(`fs`);
 const {promisify} = require(`util`);
-
-const stat = promisify(fs.stat);
-const readdir = promisify(fs.readdir);
 const readfile = promisify(fs.readFile);
+const {extname} = require(`path`);
 
-const printDirectory = (path, files) => {
-  return `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Directory content</title>
-</head>
-<body>
-<ul>
-    ${files.map((it) => `<li><a href="${it}">${it}</a></li>`).join(``)}
-</ul>
-</body>
-</html>`;
-};
+const MAP_OF_EXTENSIONS = new Map([
+  [`.css`, `text/css`],
+  [`.html`, `text/html; charset=UTF-8`],
+  [`.png`, `image/png`],
+  [`.jpg`, `image/jpeg`],
+  [`.ico`, `image/x-icon`]
+]);
 
 const readFile = async (path, res) => {
   const data = await readfile(path);
-  res.setHeader(`content-type`, `text/plain`);
+  const ext = extname(path);
+
+  res.setHeader(`content-type`, MAP_OF_EXTENSIONS.get(ext));
   res.setHeader(`content-length`, Buffer.byteLength(data));
   res.end(data);
 };
 
-
-const readDir = async (path, res) => {
-  const files = await readdir(path);
-  res.setHeader(`content-type`, `text/html`);
-  const content = printDirectory(path, files);
-  res.setHeader(`content-length`, Buffer.byteLength(content));
-  res.end(content);
-};
-
 const server = http.createServer((req, res) => {
-  const absolutePath = __dirname + url.parse(req.url).pathname;
+  const absolutePath = __dirname + `/../static` + url.parse(req.url).pathname;
 
   (async () => {
     try {
-      const pathStat = await stat(absolutePath);
-
-      res.statusCode = 200;
-      res.statusMessage = `OK`;
-
-      if (pathStat.isDirectory()) {
-        await readDir(absolutePath, res);
+      console.log(req.url)
+      if (req.url === `/`) {
+        await readFile(absolutePath + `index.html`, res);
       } else {
         await readFile(absolutePath, res);
       }
+      res.statusCode = 200;
+      res.statusMessage = `OK`;
     } catch (e) {
+      console.error(e);
       res.writeHead(404, `Not Found`);
       res.end();
     }
@@ -66,7 +49,7 @@ const server = http.createServer((req, res) => {
 });
 
 module.exports = {
-  run(PORT) {
+  execute(PORT) {
     const HOSTNAME = `127.0.0.1`;
     server.listen(PORT, HOSTNAME, () => {
       console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
