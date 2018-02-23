@@ -50,7 +50,9 @@ const server = http.createServer((req, res) => {
 module.exports = {
   execute(PORT) {
     const HOSTNAME = `127.0.0.1`;
-    server.listen(PORT, HOSTNAME, () => {
+    const DEFAULT_PORT = `3000`;
+
+    server.listen(PORT || DEFAULT_PORT, HOSTNAME, () => {
       console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
     });
   }
