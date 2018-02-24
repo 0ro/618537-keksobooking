@@ -6,6 +6,6 @@ module.exports = {
   option: `<port>`,
   description: `Run server on <port>, default is 3000`,
   execute() {
-    server.execute(args[0]);
+    server.run(args[0]);
   }
 };
