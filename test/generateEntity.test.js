@@ -1,6 +1,6 @@
 const assert = require(`assert`);
 const {generateEntity} = require(`../src/generator/generateEntity`);
-const [{author, offer, location}] = generateEntity();
+const [{author, offer, location, date}] = generateEntity();
 const helpers = require(`./helpers`);
 const {
   isItemFromArray,
@@ -109,6 +109,11 @@ describe(`GenerateEntity`, () => {
     });
     it(`location.y should be in between 150...500`, () => {
       assert.equal(isNumberFromRange(location.y, {start: 150, end: 500}), true);
+    });
+  });
+  describe(`date`, () => {
+    it(`date should be number`, () => {
+      assert.equal(typeof date, `number`);
     });
   });
 });

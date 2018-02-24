@@ -2,7 +2,8 @@ const {
   getRandomString,
   getRandomNumberFromRange,
   getRandomItemFromArray,
-  getRandomMixArray
+  getRandomMixArray,
+  getRandomDate
 } = require(`./randomizer`);
 const {
   OFFER_TITLES,
@@ -37,10 +38,13 @@ const generateEntity = (number = 1) => {
       photos: getRandomMixArray(OFFER_PHOTOS)
     };
 
+    const date = getRandomDate();
+
     return {
       author,
       offer,
-      location
+      location,
+      date
     };
   });
 };
