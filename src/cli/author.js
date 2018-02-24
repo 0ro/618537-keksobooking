@@ -5,7 +5,7 @@ module.exports = {
   name: `author`,
   description: `Shows program author`,
   execute() {
-    console.log(`${colors.random(packageInfo.author)}`);
+    console.log(`${colors.green(packageInfo.author)}`);
     process.exit(0);
   }
 };
