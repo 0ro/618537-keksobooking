@@ -1,5 +1,5 @@
-const {isFileExist, createFileWithResult} = require(`../src/generate`);
-const {rl} = require(`../src/questionPromise`);
+const {isFileExist, createFileWithResult} = require(`../src/generator/generate`);
+const {rl} = require(`../src/generator/questionPromise`);
 const fs = require(`fs`);
 const {promisify} = require(`util`);
 const unlink = promisify(fs.unlink);

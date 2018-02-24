@@ -1,12 +1,13 @@
 const args = process.argv.slice(2);
-const version = require(`./version`);
-const help = require(`./help`);
-const author = require(`./author`);
-const license = require(`./license`);
-const description = require(`./description`);
-const voidCommand = require(`./voidCommand`);
-const error = require(`./error`);
-const generate = require(`./generate`);
+const version = require(`./cli/version`);
+const help = require(`./cli/help`);
+const author = require(`./cli/author`);
+const license = require(`./cli/license`);
+const description = require(`./cli/description`);
+const voidCommand = require(`./cli/voidCommand`);
+const error = require(`./cli/error`);
+const generate = require(`./generator/generate`);
+const server = require(`./cli/server`);
 
 const map = new Map([
   [`--${version.name}`, version.execute],
@@ -15,6 +16,7 @@ const map = new Map([
   [`--${license.name}`, license.execute],
   [`--${description.name}`, description.execute],
   [`--${generate.name}`, generate.execute],
+  [`--${server.name}`, server.execute],
   [void 0, voidCommand.execute]
 ]);
 

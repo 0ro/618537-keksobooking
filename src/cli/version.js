@@ -1,5 +1,5 @@
 const colors = require(`colors`);
-const packageInfo = require(`../package.json`);
+const packageInfo = require(`../../package.json`);
 
 const getColorVersion = (version, arrOfColor) => {
   const colorsOfVersion = arrOfColor || [`red`, `green`, `blue`];

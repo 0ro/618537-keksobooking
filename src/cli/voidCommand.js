@@ -1,5 +1,5 @@
-const generate = require(`./generate`);
-const {questionPromise} = require(`./questionPromise`);
+const generate = require(`../generator/generate`);
+const {questionPromise} = require(`../generator/questionPromise`);
 const colors = require(`colors`);
 
 module.exports = {
