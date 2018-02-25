@@ -11,7 +11,7 @@ const {
   OFFER_TITLES,
   OFFER_TYPES,
   OFFER_CHECKINS
-} = require(`../constants`);
+} = require(`../src/data/offer`);
 
 describe(`GenerateEntity`, () => {
   describe(`author`, () => {

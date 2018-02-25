@@ -11,7 +11,7 @@ const {
   OFFER_CHECKINS,
   OFFER_PHOTOS,
   OFFER_FEATURES
-} = require(`../../constants`);
+} = require(`../data/offer`);
 
 const generateEntity = (number = 1) => {
   return new Array(number).fill(number).map(() => {
