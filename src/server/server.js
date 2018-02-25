@@ -1,7 +1,10 @@
 const express = require(`express`);
-
+const offersRouter = require(`./offers/route`);
 const app = express();
+
 app.use(express.static(`static`));
+
+app.use(`/api/offers`, offersRouter);
 
 module.exports = {
   run(PORT) {
