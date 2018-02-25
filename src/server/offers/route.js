@@ -2,8 +2,11 @@ const {Router} = require(`express`);
 const async = require(`../util/async`);
 const bodyParser = require(`body-parser`);
 const {generateEntity} = require(`../../generator/generateEntity`);
+const multer = require(`multer`);
 
 const offersRouter = new Router();
+
+const upload = multer({storage: multer.memoryStorage()});
 
 offersRouter.use(bodyParser.json());
 
@@ -20,8 +23,13 @@ const toPage = (data, skip = 0, limit = 20) => {
 
 offersRouter.get(``, async(async (req, res) => res.send(toPage(offers))));
 
+offersRouter.post(``, upload.single(`avatar`), (req, res) => {
+  const data = req.body;
+
+  res.send(data);
+});
+
 offersRouter.get(`/:date`, (req, res) => {
-  console.log(req.params);
   const date = +req.params[`date`];
   const offer = offers.find((it) => it.date === date);
   if (!offer) {
