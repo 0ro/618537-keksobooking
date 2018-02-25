@@ -10,12 +10,14 @@ const {
   OFFER_TYPES,
   OFFER_CHECKINS,
   OFFER_PHOTOS,
-  OFFER_FEATURES
+  OFFER_FEATURES,
+  AUTHOR_NAME
 } = require(`../data/offer`);
 
 const generateEntity = (number = 1) => {
   return new Array(number).fill(number).map(() => {
     const author = {
+      name: getRandomItemFromArray(AUTHOR_NAME),
       avatar: `https://robohash.org/` + getRandomString()
     };
 
