@@ -1,6 +1,6 @@
 const assert = require(`assert`);
 const {generateEntity} = require(`../src/generator/generateEntity`);
-const [{author, offer, location}] = generateEntity();
+const [{author, offer, location, date}] = generateEntity();
 const helpers = require(`./helpers`);
 const {
   isItemFromArray,
@@ -11,7 +11,7 @@ const {
   OFFER_TITLES,
   OFFER_TYPES,
   OFFER_CHECKINS
-} = require(`../constants`);
+} = require(`../src/data/offer`);
 
 describe(`GenerateEntity`, () => {
   describe(`author`, () => {
@@ -20,6 +20,9 @@ describe(`GenerateEntity`, () => {
     });
     it(`author should have an avatar`, () => {
       assert.equal(typeof author.avatar, `string`);
+    });
+    it(`author should have a name`, () => {
+      assert.equal(typeof author.name, `string`);
     });
     it(`avatar should be url`, () => {
       assert.equal(/https?/.test(author.avatar), true);
@@ -109,6 +112,11 @@ describe(`GenerateEntity`, () => {
     });
     it(`location.y should be in between 150...500`, () => {
       assert.equal(isNumberFromRange(location.y, {start: 150, end: 500}), true);
+    });
+  });
+  describe(`date`, () => {
+    it(`date should be number`, () => {
+      assert.equal(typeof date, `number`);
     });
   });
 });

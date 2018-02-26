@@ -1,11 +1,11 @@
-const server = require(`../server`);
+const server = require(`../server/server`);
 const args = process.argv.slice(3);
 
 module.exports = {
   name: `server`,
   option: `<port>`,
-  description: `Run server on <port>, default is 3000`,
+  description: `Run server on [PORT], default is 3000`,
   execute() {
-    server.execute(args[0]);
+    server.run(args[0]);
   }
 };

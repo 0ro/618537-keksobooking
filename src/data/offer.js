@@ -1,3 +1,12 @@
+const AUTHOR_NAME = [
+  `Pavel`,
+  `Jack`,
+  `Nik`,
+  `John`,
+  `Bob`,
+  `Viktor`
+];
+
 const OFFER_TITLES = [
   `Большая уютная квартира`,
   `Маленькая неуютная квартира`,
@@ -34,6 +43,7 @@ const OFFER_FEATURES = [
 ];
 
 module.exports = {
+  AUTHOR_NAME,
   OFFER_TITLES,
   OFFER_TYPES,
   OFFER_CHECKINS,

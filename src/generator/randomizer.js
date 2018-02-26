@@ -10,10 +10,14 @@ const getRandomMixArray = (array) => {
   const arr = [...array];
   return arr.sort(() => Math.random() - 0.5);
 };
+const getRandomDate = (start = new Date(2015, 0, 1), end = new Date()) => {
+  return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).getTime();
+};
 
 module.exports = {
   getRandomString,
   getRandomNumberFromRange,
   getRandomItemFromArray,
-  getRandomMixArray
+  getRandomMixArray,
+  getRandomDate
 };

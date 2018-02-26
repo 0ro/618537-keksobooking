@@ -2,19 +2,22 @@ const {
   getRandomString,
   getRandomNumberFromRange,
   getRandomItemFromArray,
-  getRandomMixArray
+  getRandomMixArray,
+  getRandomDate
 } = require(`./randomizer`);
 const {
   OFFER_TITLES,
   OFFER_TYPES,
   OFFER_CHECKINS,
   OFFER_PHOTOS,
-  OFFER_FEATURES
-} = require(`../../constants`);
+  OFFER_FEATURES,
+  AUTHOR_NAME
+} = require(`../data/offer`);
 
 const generateEntity = (number = 1) => {
   return new Array(number).fill(number).map(() => {
     const author = {
+      name: getRandomItemFromArray(AUTHOR_NAME),
       avatar: `https://robohash.org/` + getRandomString()
     };
 
@@ -37,10 +40,13 @@ const generateEntity = (number = 1) => {
       photos: getRandomMixArray(OFFER_PHOTOS)
     };
 
+    const date = getRandomDate();
+
     return {
       author,
       offer,
-      location
+      location,
+      date
     };
   });
 };
