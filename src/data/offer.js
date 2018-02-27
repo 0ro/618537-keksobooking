@@ -1,10 +1,11 @@
 const AUTHOR_NAME = [
+  `Keks`,
   `Pavel`,
-  `Jack`,
-  `Nik`,
-  `John`,
-  `Bob`,
-  `Viktor`
+  `Nikolay`,
+  `Alex`,
+  `Ulyana`,
+  `Anastasyia`,
+  `Julia`
 ];
 
 const OFFER_TITLES = [
