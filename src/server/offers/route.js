@@ -17,7 +17,7 @@ const upload = multer({storage: multer.memoryStorage()});
 
 offersRouter.use(bodyParser.json());
 
-const toPage = async (cursor, skip = 0, limit = 20) => {
+const toPage = async (cursor, skip, limit) => {
   return {
     data: await (cursor.skip(skip).limit(limit).toArray()),
     skip,
@@ -70,7 +70,11 @@ const transformData = (data, date) => {
   };
 };
 
-offersRouter.get(``, async(async (req, res) => res.send(await toPage(await offersRouter.offersStore.getAllOffers(), +req.query.skip, +req.query.limit))));
+offersRouter.get(``, async(async (req, res) => {
+  const skip = +req.query.skip || 0;
+  const limit = +req.query.limit || 20;
+  res.send(await toPage(await offersRouter.offersStore.getAllOffers(), skip, limit));
+}));
 
 offersRouter.post(``, upload.single(`avatar`), async(async (req, res) => {
   const data = fillDefaultValues(req.body,
@@ -84,7 +88,7 @@ offersRouter.post(``, upload.single(`avatar`), async(async (req, res) => {
   if (avatar) {
     data.avatar = avatar;
   }
-  console.log(data);
+
   const errors = validateSchema(data, keksobookingSchema);
 
   if (errors.length > 0) {

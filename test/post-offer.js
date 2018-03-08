@@ -1,5 +1,8 @@
 const request = require(`supertest`);
-const {app} = require(`../src/server/server`);
+const mockOffersRouter = require(`./mock-offers-router`);
+const app = require(`express`)();
+
+app.use(`/api/offers`, mockOffersRouter);
 
 describe(`POST /api/offers`, function () {
 
@@ -75,20 +78,7 @@ describe(`POST /api/offers`, function () {
         field(`checkout`, `07:00`).
         field(`features`, [`elevator`, `conditioner`]).
         attach(`avatar`, `test/fixtures/keks.png`).
-        attach(`preview`, `test/fixtures/keks.png`).
-        expect(200, {
-          name: `Pavel`,
-          title: `Маленькая квартирка рядом с парком`,
-          address: `102-0075 Tōkyō-to, Chiyoda-ku, Sanbanchō`,
-          description: `Маленькая чистая квратира на краю парка. Без интернета, регистрации и СМС.`,
-          price: 30000,
-          type: `flat`,
-          rooms: 1,
-          guests: 1,
-          checkin: `09:00`,
-          checkout: `07:00`,
-          features: [`elevator`, `conditioner`]
-        });
+        expect(200);
   });
 
   it(`should fail if checkin is invalid`, () => {

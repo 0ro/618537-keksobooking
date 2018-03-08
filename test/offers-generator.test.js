@@ -1,6 +1,6 @@
 const assert = require(`assert`);
-const {generateEntity} = require(`../src/generator/generateEntity`);
-const [{author, offer, location, date}] = generateEntity();
+const {generate} = require(`../src/generator/offers-generator`);
+const [{author, offer, location, date}] = generate();
 const helpers = require(`./helpers`);
 const {
   isItemFromArray,
@@ -13,7 +13,7 @@ const {
   OFFER_CHECKINS
 } = require(`../src/data/offer`);
 
-describe(`GenerateEntity`, () => {
+describe(`Offers generator`, () => {
   describe(`author`, () => {
     it(`should have an author`, () => {
       assert.equal(typeof author, `object`);

@@ -1,4 +1,4 @@
-const {generateEntity} = require(`./generateEntity`);
+const {generate} = require(`./offers-generator`);
 const fs = require(`fs`);
 const util = require(`util`);
 const writeFile = util.promisify(fs.writeFile);
@@ -35,7 +35,7 @@ const isFileExist = (currentState) => {
 };
 
 const createFileWithResult = (currentState) => {
-  const data = generateEntity(currentState.numberOfEntity);
+  const data = generate(currentState.numberOfEntity);
   const fileWriteOptions = {encoding: `utf-8`, mode: 0o644};
   return writeFile(`${process.cwd()}/${currentState.fileName}.json`, JSON.stringify(data), fileWriteOptions);
 };
