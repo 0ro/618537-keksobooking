@@ -54,7 +54,7 @@ module.exports = {
   isTime() {
     return {
       assert(time) {
-        return /^\d{2}:\d{2}$/g.test(time);
+        return /^(([0,1]\d)|(2[0-3])):[0-5]\d$/g.test(time);
       },
       message: `should be a time in format HH:mm`
     };
