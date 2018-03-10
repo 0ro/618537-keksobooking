@@ -1,5 +1,6 @@
 const util = require(`util`);
 const ValidationError = require(`../error/validation-error`);
+const NotFoundError = require(`../error/not-found-error`);
 
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;
@@ -60,9 +61,16 @@ module.exports = {
   renderDataSuccess: (req, res, data) => render(req, res, data, true),
   renderDataError: (req, res, data) => render(req, res, data, false),
   renderException: (req, res, exception) => {
-    let data = exception;
-    if (exception instanceof ValidationError) {
-      data = exception.errors;
+    let data;
+    if (exception instanceof ValidationError || exception instanceof NotFoundError) {
+      data = exception;
+    } else {
+      console.error(exception);
+      data = {
+        code: 501,
+        message: `Internal Error`,
+        errorMessage: `Server has fallen into unrecoverable problem.`
+      };
     }
     render(req, res, data, false);
   }
