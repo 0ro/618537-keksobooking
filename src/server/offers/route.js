@@ -125,7 +125,7 @@ offersRouter.get(`/:date/avatar`, async(async (req, res) => {
   const offer = await offersRouter.offersStore.getOffer(offerDate);
 
   if (!offer) {
-    throw new NotFoundError(`offer with date "${offerDate}" not found`);
+    throw new NotFoundError(`offer with date "${offerDate}" not found`, 400);
   }
 
   const avatar = offer.author.avatar;

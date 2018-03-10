@@ -62,7 +62,9 @@ module.exports = {
   renderDataError: (req, res, data) => render(req, res, data, false),
   renderException: (req, res, exception) => {
     let data;
-    if (exception instanceof ValidationError || exception instanceof NotFoundError) {
+    if (exception instanceof ValidationError) {
+      data = exception.errors;
+    } else if (exception instanceof NotFoundError) {
       data = exception;
     } else {
       console.error(exception);
