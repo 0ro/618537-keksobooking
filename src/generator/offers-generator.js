@@ -14,7 +14,7 @@ const {
   AUTHOR_NAME
 } = require(`../data/offer`);
 
-const generateEntity = (number = 1) => {
+const generate = (number = 1) => {
   return new Array(number).fill(number).map(() => {
     const author = {
       name: getRandomItemFromArray(AUTHOR_NAME),
@@ -52,5 +52,5 @@ const generateEntity = (number = 1) => {
 };
 
 module.exports = {
-  generateEntity
+  generate
 };
