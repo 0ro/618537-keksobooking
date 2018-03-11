@@ -10,7 +10,7 @@ describe(`Generate JSON command`, function () {
   it(`should create new file`, function () {
     const fileName = `testfile`;
     const numberOfEntity = 10;
-    return isFileExist({fileName, numberOfEntity})
+    return isFileExist(fileName)
         .then((fd) => close(fd))
         .then(createFileWithData.bind(null, fileName, generate(numberOfEntity)))
         .then(() => unlink(`${process.cwd()}/${fileName}.json`));
