@@ -4,7 +4,7 @@ const colors = require(`colors`);
 
 module.exports = {
   name: `fill`,
-  description: `Show message for use generate`,
+  description: `Fill test data for project`,
   execute() {
     questionPromise(`Hello User! Generate the data? y/n: `).then((answer) => {
       answer = answer.trim();
