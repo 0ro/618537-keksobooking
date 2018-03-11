@@ -95,10 +95,9 @@ offersRouter.post(``, upload.fields(
       {
         name: getRandomItemFromArray(AUTHOR_NAME)
       });
-
   const dateNow = Date.now();
 
-  const avatar = req.files.avatar[0];
+  const avatar = req.files && req.files.avatar && req.files.avatar[0];
   if (avatar) {
     data.avatar = avatar;
   }
@@ -117,8 +116,7 @@ offersRouter.post(``, upload.fields(
     data.avatar = avatarInfo;
   }
 
-  const photos = req.files.photos[0];
-
+  const photos = req.files && req.files.photos && req.files.photos[0];
   if (photos) {
     const photosInfo = {
       path: `/api/offers/${dateNow}/photos/1`,
