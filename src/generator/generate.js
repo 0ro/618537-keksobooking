@@ -1,10 +1,12 @@
 const {generate} = require(`./offers-generator`);
 const fs = require(`fs`);
 const util = require(`util`);
-const writeFile = util.promisify(fs.writeFile);
-const openFile = util.promisify(fs.open);
+const readFile = util.promisify(fs.readFile);
 const {questionPromise} = require(`./questionPromise`);
 const colors = require(`colors`);
+const createFileWithData = require(`./createFileWithData`);
+const offerStore = require(`../server/offers/store`);
+const isFileExist = require(`./isFileExist`);
 
 const state = {
   numberOfEntity: null,
@@ -30,20 +32,10 @@ const setState = (type, key, value) => {
   throw new Error(`I don't know this type`);
 };
 
-const isFileExist = (currentState) => {
-  return openFile(`${process.cwd()}/${currentState.fileName}.json`, `wx`);
-};
-
-const createFileWithResult = (currentState) => {
-  const data = generate(currentState.numberOfEntity);
-  const fileWriteOptions = {encoding: `utf-8`, mode: 0o644};
-  return writeFile(`${process.cwd()}/${currentState.fileName}.json`, JSON.stringify(data), fileWriteOptions);
-};
-
 const answerWithFileOverwrite = (answer) => {
   answer = answer.trim();
   if (answer === `y`) {
-    return createFileWithResult(state);
+    return createFileWithData(state.fileName, generate(state.numberOfEntity));
   }
   throw new Error(`Cancel generate`);
 };
@@ -57,6 +49,7 @@ const generateFail = (err) => {
   if (err.code === `EEXIST`) {
     return questionPromise(`${colors.yellow(`WARNING`)} The file exists. Is it overwritten? y/n: `)
         .then(answerWithFileOverwrite)
+        .then(addResultToDB.bind(null, state))
         .then(generateSuccess)
         .catch((error) => generateFail(error));
   }
@@ -65,19 +58,30 @@ const generateFail = (err) => {
   return 0;
 };
 
+const addResultToDB = (currentState) => {
+  const writeToDB = async (data) => {
+    try {
+      await offerStore.saveAll(JSON.parse(data));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+  return readFile(`${process.cwd()}/${currentState.fileName}.json`, {encoding: `utf-8`})
+      .then(writeToDB);
+};
+
 module.exports = {
   name: `generate`,
   description: `Generates data for project`,
-  execute(stateAnswer = state) {
-    questionPromise(`How many items you need to create? `)
+  execute() {
+    questionPromise(`How many offers you want to create? `)
         .then(setState.bind(null, `number`, `numberOfEntity`))
-        .then(questionPromise.bind(null, `Write file's name: `))
+        .then(questionPromise.bind(null, `We will save offers to database and file. Write file's name: `))
         .then(setState.bind(null, `string`, `fileName`))
-        .then(isFileExist.bind(null, stateAnswer))
-        .then(createFileWithResult.bind(null, stateAnswer))
+        .then(isFileExist.bind(null, state.fileName))
+        .then(createFileWithData.bind(null, state.fileName, generate(state.numberOfEntity)))
+        .then(addResultToDB.bind(null, state))
         .then(generateSuccess)
         .catch(generateFail);
-  },
-  isFileExist,
-  createFileWithResult
+  }
 };

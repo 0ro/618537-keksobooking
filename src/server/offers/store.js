@@ -26,8 +26,16 @@ class OfferStore {
     return (await this.collection).insertOne(offerData);
   }
 
+  async saveAll(offersData) {
+    return (await this.collection).insertMany(offersData);
+  }
+
   async removeOffer(date) {
     return (await this.collection).deleteOne({date});
+  }
+
+  async removeAllOffers() {
+    return (await this.collection).remove();
   }
 
 }

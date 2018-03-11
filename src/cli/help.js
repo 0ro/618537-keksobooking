@@ -3,7 +3,7 @@ const version = require(`./version`);
 const author = require(`./author`);
 const license = require(`./license`);
 const description = require(`./description`);
-const voidCommand = require(`./voidCommand`);
+const fill = require(`./fill`);
 const generate = require(`../generator/generate`);
 const server = require(`./server`);
 
@@ -32,7 +32,7 @@ const mapOfCommands = new Map([
   [`${description.name}`, description.description],
   [`${generate.name}`, `${generate.description}`],
   [`${server.name} ${server.option}`, `${server.description}`],
-  [void 0, voidCommand.description]
+  [`${fill.name}`, fill.description]
 ]);
 
 module.exports = help;

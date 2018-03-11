@@ -1,10 +1,9 @@
 const generate = require(`../generator/generate`);
 const {questionPromise} = require(`../generator/questionPromise`);
 const colors = require(`colors`);
-const logger = require(`winston`);
 
 module.exports = {
-  name: `void`,
+  name: `fill`,
   description: `Show message for use generate`,
   execute() {
     questionPromise(`Hello User! Generate the data? y/n: `).then((answer) => {
@@ -14,7 +13,7 @@ module.exports = {
       }
       throw new Error(`Cancel generate`);
     }).catch((err) => {
-      logger.error(colors.red(err));
+      console.error(colors.red(err));
       process.exit(1);
     });
   }
