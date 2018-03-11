@@ -1,5 +1,5 @@
 const db = require(`../../database/database`);
-const logger = require(`winston`);
+const logger = require(`../../logger`);
 
 const setupCollection = async () => {
   const dBase = await db;

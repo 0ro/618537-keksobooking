@@ -1,7 +1,7 @@
 const util = require(`util`);
 const ValidationError = require(`../error/validation-error`);
 const NotFoundError = require(`../error/not-found-error`);
-const logger = require(`winston`);
+const logger = require(`../../logger`);
 
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;
