@@ -1,6 +1,7 @@
 const generate = require(`../generator/generate`);
 const {questionPromise} = require(`../generator/questionPromise`);
 const colors = require(`colors`);
+const logger = require(`winston`);
 
 module.exports = {
   name: `void`,
@@ -13,7 +14,7 @@ module.exports = {
       }
       throw new Error(`Cancel generate`);
     }).catch((err) => {
-      console.error(colors.red(err));
+      logger.error(colors.red(err));
       process.exit(1);
     });
   }

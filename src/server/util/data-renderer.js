@@ -1,6 +1,7 @@
 const util = require(`util`);
 const ValidationError = require(`../error/validation-error`);
 const NotFoundError = require(`../error/not-found-error`);
+const logger = require(`winston`);
 
 const SUCCESS_CODE = 200;
 const BAD_DATA_CODE = 400;
@@ -67,7 +68,7 @@ module.exports = {
     } else if (exception instanceof NotFoundError) {
       data = exception;
     } else {
-      console.error(exception);
+      logger.error(exception);
       data = {
         code: 501,
         message: `Internal Error`,

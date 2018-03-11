@@ -6,6 +6,7 @@ const description = require(`./description`);
 const voidCommand = require(`./voidCommand`);
 const generate = require(`../generator/generate`);
 const server = require(`./server`);
+const logger = require(`winston`);
 
 const getCommands = (map) => {
   let resultString = ``;
@@ -19,7 +20,7 @@ const help = {
   name: `help`,
   description: `Shows program help`,
   execute() {
-    console.log(`Available commands:\n` + getCommands(mapOfCommands));
+    logger.info(`Available commands:\n` + getCommands(mapOfCommands));
     process.exit(0);
   }
 };

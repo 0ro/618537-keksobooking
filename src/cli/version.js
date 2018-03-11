@@ -1,5 +1,6 @@
 const colors = require(`colors`);
 const packageInfo = require(`../../package.json`);
+const logger = require(`winston`);
 
 const getColorVersion = (version, arrOfColor) => {
   const colorsOfVersion = arrOfColor || [`red`, `green`, `blue`];
@@ -12,7 +13,7 @@ module.exports = {
   name: `version`,
   description: `Shows program version`,
   execute() {
-    console.log(`v${getColorVersion(packageInfo.version)}`);
+    logger.info(`v${getColorVersion(packageInfo.version)}`);
     process.exit(0);
   }
 };

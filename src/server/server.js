@@ -3,6 +3,7 @@ const offerStore = require(`./offers/store`);
 const imageStore = require(`./images/store`);
 const offersRouter = require(`./offers/route`)(offerStore, imageStore);
 const app = express();
+const logger = require(`winston`);
 
 app.use(express.static(`static`));
 
@@ -14,7 +15,7 @@ module.exports = {
     const PORT = port || process.env.SERVER_PORT;
 
     app.listen(PORT, HOSTNAME, () => {
-      console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
+      logger.info(`Server running at http://${HOSTNAME}:${PORT}/`);
     });
   },
   app

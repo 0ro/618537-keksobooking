@@ -1,4 +1,5 @@
 const db = require(`../../database/database`);
+const logger = require(`winston`);
 
 const setupCollection = async () => {
   const dBase = await db;
@@ -27,4 +28,4 @@ class OfferStore {
 
 }
 
-module.exports = new OfferStore(setupCollection().catch((e) => console.error(`Failed to set up "offers"-collection`, e)));
+module.exports = new OfferStore(setupCollection().catch((e) => logger.error(`Failed to set up "offers"-collection`, e)));
