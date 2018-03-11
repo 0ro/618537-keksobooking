@@ -3,8 +3,8 @@ const {questionPromise} = require(`../generator/questionPromise`);
 const colors = require(`colors`);
 
 module.exports = {
-  name: `void`,
-  description: `Show message for use generate`,
+  name: `fill`,
+  description: `Fill test data for project`,
   execute() {
     questionPromise(`Hello User! Generate the data? y/n: `).then((answer) => {
       answer = answer.trim();

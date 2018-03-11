@@ -3,6 +3,7 @@ const offerStore = require(`./offers/store`);
 const imageStore = require(`./images/store`);
 const offersRouter = require(`./offers/route`)(offerStore, imageStore);
 const app = express();
+const logger = require(`../logger`);
 
 app.use(express.static(`static`));
 
@@ -10,11 +11,11 @@ app.use(`/api/offers`, offersRouter);
 
 module.exports = {
   run(port) {
-    const HOSTNAME = `127.0.0.1`;
-    const PORT = port || `3000`;
+    const HOSTNAME = process.env.SERVER_HOST || `localhost`;
+    const PORT = port || process.env.SERVER_PORT || 3000;
 
     app.listen(PORT, HOSTNAME, () => {
-      console.log(`Server running at http://${HOSTNAME}:${PORT}/`);
+      logger.info(`Server running at http://${HOSTNAME}:${PORT}/`);
     });
   },
   app

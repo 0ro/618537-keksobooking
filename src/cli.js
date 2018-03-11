@@ -4,9 +4,8 @@ const help = require(`./cli/help`);
 const author = require(`./cli/author`);
 const license = require(`./cli/license`);
 const description = require(`./cli/description`);
-const voidCommand = require(`./cli/voidCommand`);
+const fill = require(`./cli/fill`);
 const error = require(`./cli/error`);
-const generate = require(`./generator/generate`);
 const server = require(`./cli/server`);
 
 const map = new Map([
@@ -15,9 +14,9 @@ const map = new Map([
   [`--${author.name}`, author.execute],
   [`--${license.name}`, license.execute],
   [`--${description.name}`, description.execute],
-  [`--${generate.name}`, generate.execute],
   [`--${server.name}`, server.execute],
-  [void 0, voidCommand.execute]
+  [`--${fill.name}`, fill.execute],
+  [void 0, error.execute.bind(null, void 0)]
 ]);
 
 if (map.get(args[0])) {
