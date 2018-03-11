@@ -7,7 +7,7 @@ const keksobookingSchema = require(`./validation`);
 const ValidationError = require(`../error/validation-error`);
 const NotFoundError = require(`../error/not-found-error`);
 const dataRenderer = require(`../util/data-renderer`);
-const {getRandomItemFromArray, getRandomNumberFromRange} = require(`../../generator/randomizer`);
+const {getRandomItemFromArray} = require(`../../generator/randomizer`);
 const {AUTHOR_NAME} = require(`../../data/offer`);
 const createStreamFromBuffer = require(`../util/buffer-to-stream`);
 
@@ -16,6 +16,12 @@ const offersRouter = new Router();
 const upload = multer({storage: multer.memoryStorage()});
 
 offersRouter.use(bodyParser.json());
+
+offersRouter.use((req, res, next) => {
+  res.header(`Access-Control-Allow-Origin`, `*`);
+  res.header(`Access-Control-Allow-Headers`, `Origin, X-Requested-With, Content-Type, Accept`);
+  next();
+});
 
 const toPage = async (cursor, skip, limit) => {
   return {
@@ -44,10 +50,9 @@ const transformData = (data, date) => {
     avatar: data.avatar
   };
 
-  const location = {
-    x: getRandomNumberFromRange(300, 900),
-    y: getRandomNumberFromRange(150, 500)
-  };
+  const [x, y] = data.address.split(`,`);
+
+  const location = {x, y};
 
   const offer = {
     title: data.title,
@@ -59,7 +64,8 @@ const transformData = (data, date) => {
     guests: data.guests,
     checkin: data.checkin,
     checkout: data.checkout,
-    features: data.features
+    features: data.features,
+    photos: data.photos
   };
 
   return {
@@ -76,7 +82,15 @@ offersRouter.get(``, async(async (req, res) => {
   res.send(await toPage(await offersRouter.offersStore.getAllOffers(), skip, limit));
 }));
 
-offersRouter.post(``, upload.single(`avatar`), async(async (req, res) => {
+offersRouter.post(``, upload.fields(
+    [{
+      name: `avatar`,
+      maxCount: 1
+    },
+    {
+      name: `photos`,
+      maxCount: 1
+    }]), async(async (req, res) => {
   const data = fillDefaultValues(req.body,
       {
         name: getRandomItemFromArray(AUTHOR_NAME)
@@ -84,13 +98,12 @@ offersRouter.post(``, upload.single(`avatar`), async(async (req, res) => {
 
   const dateNow = Date.now();
 
-  const avatar = req.file;
+  const avatar = req.files.avatar[0];
   if (avatar) {
     data.avatar = avatar;
   }
 
   const errors = validateSchema(data, keksobookingSchema);
-
   if (errors.length > 0) {
     throw new ValidationError(errors);
   }
@@ -104,9 +117,32 @@ offersRouter.post(``, upload.single(`avatar`), async(async (req, res) => {
     data.avatar = avatarInfo;
   }
 
+  const photos = req.files.photos[0];
+
+  if (photos) {
+    const photosInfo = {
+      path: `/api/offers/${dateNow}/photos/1`,
+      mimetype: photos.mimetype
+    };
+    await offersRouter.imageStore.save(photosInfo.path, createStreamFromBuffer(photos.buffer));
+    data.photos = photosInfo;
+  }
+
   dataRenderer.renderDataSuccess(req, res, data);
 
   await offersRouter.offersStore.save(transformData(data, dateNow));
+}));
+
+offersRouter.delete(`/:date`, async(async (req, res) => {
+  const offerDate = +req.params.date;
+
+  const offer = await offersRouter.offersStore.getOffer(offerDate);
+  if (!offer) {
+    throw new NotFoundError(`offer with date "${offerDate}" not found`);
+  } else {
+    await offersRouter.offersStore.removeOffer(offerDate);
+  }
+  res.send(offer);
 }));
 
 offersRouter.get(`/:date`, async(async (req, res) => {

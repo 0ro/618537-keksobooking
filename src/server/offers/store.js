@@ -26,6 +26,10 @@ class OfferStore {
     return (await this.collection).insertOne(offerData);
   }
 
+  async removeOffer(date) {
+    return (await this.collection).deleteOne({date});
+  }
+
 }
 
 module.exports = new OfferStore(setupCollection().catch((e) => logger.error(`Failed to set up "offers"-collection`, e)));
