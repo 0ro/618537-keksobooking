@@ -1,5 +1,5 @@
-const createOffersRouter = require(`../src/server/offers/route`);
-const offersGenerator = require(`../src/generator/offers-generator`);
+const createOffersRouter = require(`../../src/server/offers/route`);
+const offersGenerator = require(`../../src/generator/offers-generator`);
 
 const offers = offersGenerator.generate(10);
 

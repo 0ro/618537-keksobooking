@@ -1,7 +1,7 @@
 const assert = require(`assert`);
-const {generate} = require(`../src/generator/offers-generator`);
+const {generate} = require(`../../src/generator/offers-generator`);
 const [{author, offer, location, date}] = generate();
-const helpers = require(`./helpers`);
+const helpers = require(`../helpers`);
 const {
   isItemFromArray,
   isNumberFromRange,
@@ -11,7 +11,7 @@ const {
   OFFER_TITLES,
   OFFER_TYPES,
   OFFER_CHECKINS
-} = require(`../src/data/offer`);
+} = require(`../../src/data/offer`);
 
 describe(`Offers generator`, () => {
   describe(`author`, () => {
