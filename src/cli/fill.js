@@ -1,4 +1,4 @@
-const generate = require(`../generator/generate`);
+const dialogForFill = require(`../generator/dialogForFill`);
 const {questionPromise} = require(`../generator/questionPromise`);
 const colors = require(`colors`);
 
@@ -9,7 +9,7 @@ module.exports = {
     questionPromise(`Hello User! Generate the data? y/n: `).then((answer) => {
       answer = answer.trim();
       if (answer === `y`) {
-        return generate.execute();
+        return dialogForFill.execute();
       }
       throw new Error(`Cancel generate`);
     }).catch((err) => {
