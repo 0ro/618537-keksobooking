@@ -1,9 +1,9 @@
 const {generate} = require(`./offers-generator`);
-const {questionPromise} = require(`./questionPromise`);
+const {questionPromise} = require(`./question-promise`);
 const colors = require(`colors`);
-const createFileWithData = require(`./createFileWithData`);
-const isFileExist = require(`./isFileExist`);
-const addDataToDB = require(`./addDataToDB`);
+const createFileWithData = require(`./create-file-with-data`);
+const isFileExist = require(`./is-file-exist`);
+const addDataToDB = require(`./add-data-to-db`);
 const state = require(`./state`);
 
 const handlerOfFileOverwrite = (answer) => {

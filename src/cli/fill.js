@@ -1,5 +1,5 @@
-const dialogForFill = require(`../generator/dialogForFill`);
-const {questionPromise} = require(`../generator/questionPromise`);
+const dialogForFill = require(`../generator/dialog-for-fill`);
+const {questionPromise} = require(`../generator/question-promise`);
 const colors = require(`colors`);
 
 module.exports = {
